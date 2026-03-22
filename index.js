@@ -20,6 +20,9 @@ app.use((req, res, next) => {
   const params = new URLSearchParams(req.query).toString();
   req.url = req.path + (params ? '?' + params : '');
 
+  delete req.headers['cookie'];
+  delete req.headers['authorization'];
+
   createProxyMiddleware({
     target,
     changeOrigin: true,
